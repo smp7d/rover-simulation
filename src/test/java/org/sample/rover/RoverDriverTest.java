@@ -10,6 +10,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.mockito.InOrder;
+import org.sample.rover.command.RoverCommandFactory;
+import org.sample.rover.command.StandardRoverCommandFactory;
 import org.sample.rover.simulator.MarsRoverSimulator;
 import org.sample.rover.state.CompassDirectionsRoverStateFactory;
 import org.sample.rover.state.RoverStateFactory;
@@ -22,6 +24,8 @@ public class RoverDriverTest {
 		MarsRoverSimulator roverSimulator = new MarsRoverSimulator();
 		RoverStateFactory roverStateFactory = new CompassDirectionsRoverStateFactory();
 		roverSimulator.setRoverStateFactory(roverStateFactory);
+		RoverCommandFactory roverCommandFactory = new StandardRoverCommandFactory();
+		roverSimulator.setRoverCommandFactory(roverCommandFactory);
 		driver.setRoverSimulator(roverSimulator);
 		driver.setPlateauDirective("5 5").setRoverDirectives(
 				new ArrayList<RoverDirective>(Arrays.asList(new RoverDirective(
@@ -43,6 +47,8 @@ public class RoverDriverTest {
 		MarsRoverSimulator roverSimulator = new MarsRoverSimulator();
 		RoverStateFactory roverStateFactory = new CompassDirectionsRoverStateFactory();
 		roverSimulator.setRoverStateFactory(roverStateFactory);
+		RoverCommandFactory roverCommandFactory = new StandardRoverCommandFactory();
+		roverSimulator.setRoverCommandFactory(roverCommandFactory);
 		driver.setRoverSimulator(roverSimulator);
 		driver.setPlateauDirective("5 5").setRoverDirectives(
 				new ArrayList<RoverDirective>(Arrays.asList(new RoverDirective(
