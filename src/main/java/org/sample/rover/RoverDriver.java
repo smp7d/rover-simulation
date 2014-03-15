@@ -3,17 +3,33 @@ package org.sample.rover;
 import java.io.PrintStream;
 import java.util.List;
 
+import org.sample.rover.command.RoverCharacterCommands;
+import org.sample.rover.entity.Plateau;
+import org.sample.rover.simulator.RoverSimulator;
+
 public class RoverDriver {
 
 	private String plateauDirective;
 	private List<RoverDirective> roverDirectives;
 	private boolean printPlanResults = true;
 	private PrintStream printer;
+	private RoverSimulator roverSimulator;
 
 	public void runPlan() {
-		printer.println("1 3 N");
-		printer.println("5 1 E");
-		printer.println("3 3 E");
+		Plateau plateau = roverSimulator.buildPlateau(plateauDirective);
+		for (RoverDirective directive : roverDirectives) {
+			RoverController controller = roverSimulator.buildController(
+					plateau, directive, printer);
+			for (int i = 0; i < directive.getCommands().length(); i++) {
+				roverSimulator.acceptCommand(directive.getCommands().charAt(i),
+						controller);
+			}
+			if (printPlanResults) {
+				roverSimulator.acceptCommand(RoverCharacterCommands.PRINT,
+						controller);
+			}
+		}
+
 	}
 
 	public RoverDriver setRoverDirectives(
@@ -32,15 +48,8 @@ public class RoverDriver {
 		return this;
 	}
 
-	public static class RoverDirective {
-		private final String initialPosition;
-		private final String commands;
-
-		public RoverDirective(final String initialPosition,
-				final String commands) {
-			this.initialPosition = initialPosition;
-			this.commands = commands;
-		}
+	public void setRoverSimulator(RoverSimulator roverSimulator) {
+		this.roverSimulator = roverSimulator;
 	}
 
 }

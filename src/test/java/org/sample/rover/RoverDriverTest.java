@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.sample.rover.RoverDriver;
+import org.sample.rover.simulator.MarsRoverSimulator;
 
 import static org.mockito.Mockito.*;
 
@@ -15,13 +16,11 @@ public class RoverDriverTest {
 	@Test
 	public void testRunSimplePlan() {
 		RoverDriver driver = new RoverDriver();
-		driver.setPlateauDirective("5 5")
-				.setRoverDirectives(
-						new ArrayList<RoverDriver.RoverDirective>(Arrays
-								.asList(new RoverDriver.RoverDirective("1 2 N",
-										"LMLMLMLMM"),
-										new RoverDriver.RoverDirective("3 3 E",
-												"MMRMMRMRRM"))));
+		driver.setRoverSimulator(new MarsRoverSimulator());
+		driver.setPlateauDirective("5 5").setRoverDirectives(
+				new ArrayList<RoverDirective>(Arrays.asList(new RoverDirective(
+						"1 2 N", "LMLMLMLMM"), new RoverDirective("3 3 E",
+						"MMRMMRMRRM"))));
 		PrintStream printer = mock(PrintStream.class);
 		driver.setPrinter(printer);
 		driver.runPlan();
@@ -35,11 +34,11 @@ public class RoverDriverTest {
 	@Test
 	public void testRunSimplePlan_ThreeRovers() {
 		RoverDriver driver = new RoverDriver();
+		driver.setRoverSimulator(new MarsRoverSimulator());
 		driver.setPlateauDirective("5 5").setRoverDirectives(
-				new ArrayList<RoverDriver.RoverDirective>(Arrays.asList(
-						new RoverDriver.RoverDirective("1 2 N", "LMLMLMLMM"),
-						new RoverDriver.RoverDirective("3 3 E", "MMRMMRMRRM"),
-						new RoverDriver.RoverDirective("3 3 E", ""))));
+				new ArrayList<RoverDirective>(Arrays.asList(new RoverDirective(
+						"1 2 N", "LMLMLMLMM"), new RoverDirective("3 3 E",
+						"MMRMMRMRRM"), new RoverDirective("3 3 E", ""))));
 		PrintStream printer = mock(PrintStream.class);
 		driver.setPrinter(printer);
 		driver.runPlan();
