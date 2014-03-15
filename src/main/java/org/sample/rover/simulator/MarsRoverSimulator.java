@@ -1,9 +1,8 @@
 package org.sample.rover.simulator;
 
-import java.io.PrintStream;
-
 import org.sample.rover.RoverController;
 import org.sample.rover.RoverDirective;
+import org.sample.rover.StatusCommunicator;
 import org.sample.rover.entity.Plateau;
 import org.sample.rover.entity.StatelessRectangularPlateau;
 import org.sample.rover.exception.InvalidPlateauDirective;
@@ -13,7 +12,7 @@ import org.sample.rover.exception.InvalidPlateauDirective;
  * 
  */
 public class MarsRoverSimulator implements RoverSimulator {
-
+	
 	@Override
 	public void acceptCommand(char command, RoverController controller) {
 		// TODO Auto-generated method stub
@@ -22,7 +21,7 @@ public class MarsRoverSimulator implements RoverSimulator {
 
 	@Override
 	public RoverController buildController(Plateau plateau,
-			RoverDirective roverDirective, PrintStream printer) {
+			RoverDirective roverDirective, StatusCommunicator statusCommunicator) {
 		// TODO Auto-generated method stub
 		return null;
 	}

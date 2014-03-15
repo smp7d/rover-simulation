@@ -1,6 +1,5 @@
 package org.sample.rover;
 
-import java.io.PrintStream;
 import java.util.List;
 
 import org.sample.rover.command.RoverCharacterCommands;
@@ -12,14 +11,14 @@ public class RoverDriver {
 	private String plateauDirective;
 	private List<RoverDirective> roverDirectives;
 	private boolean printPlanResults = true;
-	private PrintStream printer;
+	private StatusCommunicator statusCommunicator;
 	private RoverSimulator roverSimulator;
 
 	public void runPlan() {
 		Plateau plateau = roverSimulator.buildPlateau(plateauDirective);
 		for (RoverDirective directive : roverDirectives) {
 			RoverController controller = roverSimulator.buildController(
-					plateau, directive, printer);
+					plateau, directive, statusCommunicator);
 			for (int i = 0; i < directive.getCommands().length(); i++) {
 				roverSimulator.acceptCommand(directive.getCommands().charAt(i),
 						controller);
@@ -43,13 +42,12 @@ public class RoverDriver {
 		return this;
 	}
 
-	public RoverDriver setPrinter(final PrintStream printer) {
-		this.printer = printer;
-		return this;
-	}
-
 	public void setRoverSimulator(RoverSimulator roverSimulator) {
 		this.roverSimulator = roverSimulator;
+	}
+
+	public void setStatusCommunicator(StatusCommunicator statusCommunicator) {
+		this.statusCommunicator = statusCommunicator;
 	}
 
 }
