@@ -6,7 +6,7 @@ import org.sample.rover.StatusCommunicator;
 import org.sample.rover.entity.Plateau;
 import org.sample.rover.entity.Rover;
 import org.sample.rover.entity.StatelessRectangularPlateau;
-import org.sample.rover.exception.InvalidDirective;
+import org.sample.rover.exception.InvalidDirectiveException;
 import org.sample.rover.state.RoverStateContext;
 import org.sample.rover.state.RoverStateFactory;
 import org.sample.rover.state.SimpleDirectedRoverState;
@@ -34,7 +34,7 @@ public class MarsRoverSimulator implements RoverSimulator {
 		String[] directiveParts = roverDirective.getInitialPosition()
 				.split(" ");
 		if (directiveParts.length != 3) {
-			throw new InvalidDirective(
+			throw new InvalidDirectiveException(
 					"Initial position directive should be two numbers and one of [N,E,S,W] separated by spaces!");
 		}
 		
@@ -44,7 +44,7 @@ public class MarsRoverSimulator implements RoverSimulator {
 			x = Integer.parseInt(directiveParts[0]);
 			y = Integer.parseInt(directiveParts[1]);
 		} catch (NumberFormatException e) {
-			throw new InvalidDirective(e);
+			throw new InvalidDirectiveException(e);
 		}
 		
 		rover.setCoordinates(x,y);
@@ -86,7 +86,7 @@ public class MarsRoverSimulator implements RoverSimulator {
 		// new reqs demand it
 		String[] dimensions = plateauDirective.split(" ");
 		if (dimensions.length != 2) {
-			throw new InvalidDirective(
+			throw new InvalidDirectiveException(
 					"Plateau Directive should be two numbers separated by a space!");
 		}
 
@@ -96,7 +96,7 @@ public class MarsRoverSimulator implements RoverSimulator {
 
 			return new StatelessRectangularPlateau(width, height);
 		} catch (NumberFormatException e) {
-			throw new InvalidDirective(e);
+			throw new InvalidDirectiveException(e);
 		}
 	}
 

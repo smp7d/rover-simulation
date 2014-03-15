@@ -8,7 +8,7 @@ import org.sample.rover.RoverDirective;
 import org.sample.rover.StatusCommunicator;
 import org.sample.rover.entity.Plateau;
 import org.sample.rover.entity.StatelessRectangularPlateau;
-import org.sample.rover.exception.InvalidDirective;
+import org.sample.rover.exception.InvalidDirectiveException;
 import org.sample.rover.state.RoverStateFactory;
 import org.sample.rover.state.SimpleDirectedRoverState;
 
@@ -79,17 +79,17 @@ public class MarsRoverSimulatorTest {
 		buildPlateauHelper("5 4");
 	}
 
-	@Test(expected = InvalidDirective.class)
+	@Test(expected = InvalidDirectiveException.class)
 	public void testBuildPlateau_invalidWidth() {
 		buildPlateauHelper("x 4");
 	}
 
-	@Test(expected = InvalidDirective.class)
+	@Test(expected = InvalidDirectiveException.class)
 	public void testBuildPlateau_invalidHeight() {
 		buildPlateauHelper("5 y");
 	}
 
-	@Test(expected = InvalidDirective.class)
+	@Test(expected = InvalidDirectiveException.class)
 	public void testBuildPlateau_invalidFormat() {
 		buildPlateauHelper("blah");
 	}

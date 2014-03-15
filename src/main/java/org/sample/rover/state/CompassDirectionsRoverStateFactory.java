@@ -3,7 +3,7 @@ package org.sample.rover.state;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.sample.rover.exception.InvalidDirective;
+import org.sample.rover.exception.InvalidDirectiveException;
 
 public class CompassDirectionsRoverStateFactory implements RoverStateFactory {
 	private Map<Character, SimpleDirectedRoverState> cache;
@@ -36,7 +36,7 @@ public class CompassDirectionsRoverStateFactory implements RoverStateFactory {
 			}
 			return cache.get(direction);
 		default:
-			throw new InvalidDirective("[" + direction
+			throw new InvalidDirectiveException("[" + direction
 					+ "] is not a valid compass direction");
 		}
 	}
