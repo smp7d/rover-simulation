@@ -3,31 +3,93 @@ package org.sample.rover.simulator;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.sample.rover.RoverController;
+import org.sample.rover.RoverDirective;
+import org.sample.rover.StatusCommunicator;
 import org.sample.rover.entity.Plateau;
 import org.sample.rover.entity.StatelessRectangularPlateau;
-import org.sample.rover.exception.InvalidPlateauDirective;
+import org.sample.rover.exception.InvalidDirective;
+import org.sample.rover.state.RoverStateFactory;
+import org.sample.rover.state.SimpleDirectedRoverState;
+
+import static org.mockito.Mockito.*;
 
 /**
  * Unit test for mars simulator.
  * 
  */
 public class MarsRoverSimulatorTest {
+
+	@Test
+	public void testBuildController() {
+		RoverDirective roverDirective = new RoverDirective("2 1 N", "");
+
+		Plateau plateau = new Plateau() {
+
+			@Override
+			public boolean allowsCoordinates(int x, int y) {
+				return true;
+			}
+		};
+
+		StatusCommunicator statusCommunicator = new StatusCommunicator() {
+			@Override
+			public void communicateStatus(String status) {
+			}
+		};
+
+		RoverStateFactory roverStateFactory = mock(RoverStateFactory.class);
+		when(roverStateFactory.buildState(anyChar())).thenReturn(
+				new SimpleDirectedRoverState());
+
+		MarsRoverSimulator marsRoverSimulator = new MarsRoverSimulator();
+		marsRoverSimulator.setRoverStateFactory(roverStateFactory);
+		RoverController controller = marsRoverSimulator.buildController(
+				plateau, roverDirective, statusCommunicator);
+
+		Assert.assertNotNull("Controller doesn't have a state context!",
+				controller.getStateContext());
+
+		Assert.assertNotNull("Controller doesn't have access to a rover!",
+				controller.getRover());
+		Assert.assertNotNull("Rover's coordinates are not set!", controller
+				.getRover().getCurrentCoordinates());
+		Assert.assertEquals(2, controller.getRover().getCurrentCoordinates()
+				.getX());
+		Assert.assertEquals(1, controller.getRover().getCurrentCoordinates()
+				.getY());
+
+		Assert.assertEquals("The rover is on a mysterious plateau.", plateau,
+				controller.getRover().getPlateau());
+
+		Assert
+				.assertEquals(
+						"The rover has no been set up with the correct communications equipment.",
+						statusCommunicator, controller.getRover()
+								.getStatusCommunicator());
+
+		verify(roverStateFactory, times(2)).buildState('N');
+		verify(roverStateFactory, times(1)).buildState('E');
+		verify(roverStateFactory, times(1)).buildState('S');
+		verify(roverStateFactory, times(1)).buildState('W');
+	}
+
 	@Test
 	public void testBuildPlateau() {
 		buildPlateauHelper("5 4");
 	}
 
-	@Test(expected = InvalidPlateauDirective.class)
+	@Test(expected = InvalidDirective.class)
 	public void testBuildPlateau_invalidWidth() {
 		buildPlateauHelper("x 4");
 	}
 
-	@Test(expected = InvalidPlateauDirective.class)
+	@Test(expected = InvalidDirective.class)
 	public void testBuildPlateau_invalidHeight() {
 		buildPlateauHelper("5 y");
 	}
 
-	@Test(expected = InvalidPlateauDirective.class)
+	@Test(expected = InvalidDirective.class)
 	public void testBuildPlateau_invalidFormat() {
 		buildPlateauHelper("blah");
 	}
