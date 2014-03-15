@@ -13,6 +13,7 @@ public class RoverDriver {
 	public void runPlan() {
 		printer.println("1 3 N");
 		printer.println("5 1 E");
+		printer.println("3 3 E");
 	}
 
 	public RoverDriver setRoverDirectives(
