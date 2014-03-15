@@ -1,5 +1,6 @@
 package org.sample.rover;
 
+import org.sample.rover.command.RoverCommand;
 import org.sample.rover.entity.Rover;
 import org.sample.rover.state.RoverStateContext;
 
@@ -7,6 +8,10 @@ public class RoverController {
 	private Rover rover;
 	private RoverStateContext stateContext;
 
+	public void execute(RoverCommand command){
+		command.execute(rover, stateContext);
+	}
+	
 	public void setRover(Rover rover) {
 		this.rover = rover;
 	}

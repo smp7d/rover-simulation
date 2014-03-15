@@ -3,6 +3,8 @@ package org.sample.rover.simulator;
 import org.sample.rover.RoverController;
 import org.sample.rover.RoverDirective;
 import org.sample.rover.StatusCommunicator;
+import org.sample.rover.command.RoverCommand;
+import org.sample.rover.command.RoverCommandFactory;
 import org.sample.rover.entity.Plateau;
 import org.sample.rover.entity.Rover;
 import org.sample.rover.entity.StatelessRectangularPlateau;
@@ -17,11 +19,12 @@ import org.sample.rover.state.SimpleDirectedRoverState;
  */
 public class MarsRoverSimulator implements RoverSimulator {
 	private RoverStateFactory roverStateFactory;
+	private RoverCommandFactory roverCommandFactory;
 	
 	@Override
 	public void acceptCommand(char command, RoverController controller) {
-		// TODO Auto-generated method stub
-
+		RoverCommand roverCommand = roverCommandFactory.buildRoverCommand(command);
+		controller.execute(roverCommand);
 	}
 
 	@Override
@@ -102,6 +105,10 @@ public class MarsRoverSimulator implements RoverSimulator {
 
 	public void setRoverStateFactory(RoverStateFactory roverStateFactory) {
 		this.roverStateFactory = roverStateFactory;
+	}
+
+	public void setRoverCommandFactory(RoverCommandFactory roverCommandFactory) {
+		this.roverCommandFactory = roverCommandFactory;
 	}
 
 }

@@ -6,9 +6,13 @@ import org.junit.Test;
 import org.sample.rover.RoverController;
 import org.sample.rover.RoverDirective;
 import org.sample.rover.StatusCommunicator;
+import org.sample.rover.command.RoverCommand;
+import org.sample.rover.command.RoverCommandFactory;
 import org.sample.rover.entity.Plateau;
+import org.sample.rover.entity.Rover;
 import org.sample.rover.entity.StatelessRectangularPlateau;
 import org.sample.rover.exception.InvalidDirectiveException;
+import org.sample.rover.state.RoverStateContext;
 import org.sample.rover.state.RoverStateFactory;
 import org.sample.rover.state.SimpleDirectedRoverState;
 
@@ -20,6 +24,22 @@ import static org.mockito.Mockito.*;
  */
 public class MarsRoverSimulatorTest {
 
+	@Test
+	public void testAcceptCommand(){
+		MarsRoverSimulator marsRoverSimulator = new MarsRoverSimulator();
+		RoverCommandFactory roverCommandFactory = mock(RoverCommandFactory.class);
+		RoverCommand roverCommand = mock(RoverCommand.class);
+		when(roverCommandFactory.buildRoverCommand('D')).thenReturn(roverCommand);
+		marsRoverSimulator.setRoverCommandFactory(roverCommandFactory);
+		RoverController controller = new RoverController();
+		RoverStateContext stateContext = new RoverStateContext();
+		Rover rover = new Rover();
+		controller.setRover(rover);
+		controller.setStateContext(stateContext);
+		marsRoverSimulator.acceptCommand('D', controller);
+		verify(roverCommand, times(1)).execute(rover, stateContext);
+	}
+	
 	@Test
 	public void testBuildController() {
 		RoverDirective roverDirective = new RoverDirective("2 1 N", "");
