@@ -1,13 +1,42 @@
 package org.sample.rover.entity;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import java.util.Random;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.sample.rover.StatusCommunicator;
 import org.sample.rover.exception.InvalidCoordinatesException;
 
 public class RoverTest {
+
+	@Test
+	public void testReportStatus() {
+		Rover rover = new Rover();
+		rover.setPlateau(new Plateau() {
+
+			@Override
+			public boolean allowsCoordinates(int x, int y) {
+				return true;
+			}
+		});
+
+		Random random = new Random();
+		int x = random.nextInt();
+		int y = random.nextInt();
+		rover.setCoordinates(x, y);
+
+		StatusCommunicator communicator = mock(StatusCommunicator.class);
+		rover.setStatusCommunicator(communicator);
+		char direction = 'X';
+		rover.reportStatus(direction);
+		verify(communicator, times(1)).communicateStatus(
+				x + " " + y + " " + direction);
+	}
 
 	@Test
 	public void testInitialCoordinates() {

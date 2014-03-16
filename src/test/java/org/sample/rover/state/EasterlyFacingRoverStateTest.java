@@ -16,8 +16,8 @@ public class EasterlyFacingRoverStateTest extends SimpleDirectedRoverStateTest {
 
 	@Override
 	protected SimpleDirectedRoverState createStateUnderTest(
-			RoverState clockwiseState, RoverState counterClockwiseState) {
-		EasterlyFacingRoverState state = new EasterlyFacingRoverState('X');
+			RoverState clockwiseState, RoverState counterClockwiseState, char direction) {
+		EasterlyFacingRoverState state = new EasterlyFacingRoverState(direction);
 		state.setClockwiseState(clockwiseState);
 		state.setCounterClockwiseState(counterClockwiseState);
 

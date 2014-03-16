@@ -6,4 +6,5 @@ public interface RoverState {
 	void move(Rover rover, RoverStateContext context);
 	void spinRight(Rover rover, RoverStateContext context);
 	void spinLeft(Rover rover, RoverStateContext context);
+	void reportStatus(Rover rover, RoverStateContext context);
 }

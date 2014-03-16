@@ -30,6 +30,11 @@ public class Rover {
 		}
 	}
 
+	public void reportStatus(char direction) {
+		statusCommunicator.communicateStatus(currentCoordinates.getX() + " "
+				+ currentCoordinates.getY() + " " + direction);
+	}
+
 	public Coordinates getCurrentCoordinates() {
 		return currentCoordinates;
 	}

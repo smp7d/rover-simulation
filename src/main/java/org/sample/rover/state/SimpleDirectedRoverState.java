@@ -16,6 +16,11 @@ public abstract class SimpleDirectedRoverState implements RoverState {
 		context.setCurrentState(counterClockwiseState);
 	}
 
+	@Override
+	public void reportStatus(Rover rover, RoverStateContext context) {
+		rover.reportStatus(readableDirection);
+	}
+
 	public void setClockwiseState(RoverState clockwiseState) {
 		this.clockwiseState = clockwiseState;
 	}

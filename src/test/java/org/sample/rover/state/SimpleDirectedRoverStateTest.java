@@ -14,7 +14,7 @@ public abstract class SimpleDirectedRoverStateTest {
 	public void testSpinRight() {
 		RoverState clockwiseState = createSampleRoverState();
 		SimpleDirectedRoverState state = createStateUnderTest(clockwiseState,
-				null);
+				null, 'X');
 		Rover rover = null;
 		RoverStateContext context = mock(RoverStateContext.class);
 		state.spinRight(rover, context);
@@ -25,11 +25,22 @@ public abstract class SimpleDirectedRoverStateTest {
 	public void testSpinLeft() {
 		RoverState counterClockwiseState = createSampleRoverState();
 		SimpleDirectedRoverState state = createStateUnderTest(null,
-				counterClockwiseState);
+				counterClockwiseState, 'X');
 		Rover rover = null;
 		RoverStateContext context = mock(RoverStateContext.class);
 		state.spinLeft(rover, context);
 		verify(context, times(1)).setCurrentState(counterClockwiseState);
+	}
+
+	@Test
+	public void testReportStatus() {
+		char direction = 'X';
+		SimpleDirectedRoverState state = createStateUnderTest(null, null,
+				direction);
+		Rover rover = mock(Rover.class);
+		RoverStateContext context = null;
+		state.reportStatus(rover, context);
+		verify(rover, times(1)).reportStatus(direction);
 	}
 
 	private RoverState createSampleRoverState() {
@@ -37,21 +48,28 @@ public abstract class SimpleDirectedRoverStateTest {
 
 			@Override
 			public void spinRight(Rover rover, RoverStateContext context) {
-				
+
 			}
 
 			@Override
 			public void move(Rover rover, RoverStateContext context) {
-				
+
 			}
 
 			@Override
 			public void spinLeft(Rover rover, RoverStateContext context) {
-				
+
+			}
+
+			@Override
+			public void reportStatus(Rover rover, RoverStateContext context) {
+				// TODO Auto-generated method stub
+
 			}
 		};
 	}
 
 	protected abstract SimpleDirectedRoverState createStateUnderTest(
-			RoverState clockwiseState, RoverState counterClockwiseState);
+			RoverState clockwiseState, RoverState counterClockwiseState,
+			char direction);
 }
