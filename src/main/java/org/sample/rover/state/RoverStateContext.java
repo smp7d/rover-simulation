@@ -18,4 +18,9 @@ public class RoverStateContext {
 	public void setCurrentState(RoverState currentState) {
 		this.currentState = currentState;
 	}
+
+	public void spinLeft(Rover rover) {
+		// TODO Auto-generated method stub
+		
+	}
 }

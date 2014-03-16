@@ -7,7 +7,7 @@ public class SpinLeftCommand implements RoverCommand {
 
 	@Override
 	public void execute(Rover rover, RoverStateContext stateContext) {
-		stateContext.spinRight(rover);
+		stateContext.spinLeft(rover);
 	}
 
 }

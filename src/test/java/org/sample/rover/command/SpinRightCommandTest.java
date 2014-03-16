@@ -9,15 +9,15 @@ import org.junit.Test;
 import org.sample.rover.entity.Rover;
 import org.sample.rover.state.RoverStateContext;
 
-public class SpinLeftCommandTest {
+public class SpinRightCommandTest {
 
 	@Test
 	public void testExecute() {
 		RoverStateContext context = mock(RoverStateContext.class);
-		SpinLeftCommand command = new SpinLeftCommand();
+		SpinRightCommand command = new SpinRightCommand();
 		Rover rover = new Rover();
 		command.execute(rover, context);
-		verify(context, times(1)).spinLeft(rover);
+		verify(context, times(1)).spinRight(rover);
 		verifyNoMoreInteractions(context);
 	}
 }
