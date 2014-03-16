@@ -10,8 +10,7 @@ public class NortherlyFacingRoverState extends SimpleDirectedRoverState {
 
 	@Override
 	public void move(Rover rover, RoverStateContext context) {
-		// TODO Auto-generated method stub
-		
+		rover.move(0, 1);
 	}
 
 }
