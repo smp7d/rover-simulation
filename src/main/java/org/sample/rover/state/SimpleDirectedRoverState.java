@@ -1,9 +1,11 @@
 package org.sample.rover.state;
 
-public class SimpleDirectedRoverState implements RoverState {
+
+public abstract class SimpleDirectedRoverState implements RoverState {
 	private RoverState clockwiseState, counterClockwiseState;
 	protected char readableDirection;
 
+	
 	public void setClockwiseState(RoverState clockwiseState) {
 		this.clockwiseState = clockwiseState;
 	}

@@ -1,5 +1,7 @@
 package org.sample.rover.state;
 
-public interface RoverState {
+import org.sample.rover.entity.Rover;
 
+public interface RoverState {
+	void move(Rover rover, RoverStateContext context);
 }

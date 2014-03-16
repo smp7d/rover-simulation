@@ -1,5 +1,10 @@
 package org.sample.rover.simulator;
 
+import static org.mockito.Matchers.anyChar;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -12,11 +17,9 @@ import org.sample.rover.entity.Plateau;
 import org.sample.rover.entity.Rover;
 import org.sample.rover.entity.StatelessRectangularPlateau;
 import org.sample.rover.exception.InvalidDirectiveException;
+import org.sample.rover.state.NortherlyFacingRoverState;
 import org.sample.rover.state.RoverStateContext;
 import org.sample.rover.state.RoverStateFactory;
-import org.sample.rover.state.SimpleDirectedRoverState;
-
-import static org.mockito.Mockito.*;
 
 /**
  * Unit test for mars simulator.
@@ -60,7 +63,7 @@ public class MarsRoverSimulatorTest {
 
 		RoverStateFactory roverStateFactory = mock(RoverStateFactory.class);
 		when(roverStateFactory.buildState(anyChar())).thenReturn(
-				new SimpleDirectedRoverState());
+				new NortherlyFacingRoverState('X'));
 
 		MarsRoverSimulator marsRoverSimulator = new MarsRoverSimulator();
 		marsRoverSimulator.setRoverStateFactory(roverStateFactory);

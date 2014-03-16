@@ -8,10 +8,16 @@ public class Rover {
 	private Plateau plateau;
 	private StatusCommunicator statusCommunicator;
 
-	public Rover(){
+	public Rover() {
 		currentCoordinates = new Coordinates();
 	}
-	
+
+	public void move(int moveX, int moveY) {
+		setCoordinates(currentCoordinates.getX() + moveX, currentCoordinates
+				.getY()
+				+ moveY);
+	}
+
 	public void setCoordinates(int x, int y) {
 		if (plateau.allowsCoordinates(x, y)) {
 			currentCoordinates.setX(x);

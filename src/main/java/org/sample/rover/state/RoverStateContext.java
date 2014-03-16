@@ -6,8 +6,7 @@ public class RoverStateContext {
 	private RoverState currentState;
 
 	public void move(Rover rover) {
-		// TODO Auto-generated method stub
-
+		currentState.move(rover, this);
 	}
 
 	public void spinRight(Rover rover) {
