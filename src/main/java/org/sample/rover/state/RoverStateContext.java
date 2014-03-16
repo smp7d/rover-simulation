@@ -7,20 +7,25 @@ public class RoverStateContext {
 
 	public void move(Rover rover) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void spinRight(Rover rover) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public void setCurrentState(RoverState currentState) {
 		this.currentState = currentState;
 	}
 
 	public void spinLeft(Rover rover) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	public void reportStatus(Rover rover) {
+		// TODO Auto-generated method stub
+
 	}
 }
