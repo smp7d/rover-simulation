@@ -7,8 +7,7 @@ public class MoveCommand implements RoverCommand {
 
 	@Override
 	public void execute(Rover rover, RoverStateContext stateContext) {
-		// TODO Auto-generated method stub
-
+		stateContext.move(rover);
 	}
 
 }
