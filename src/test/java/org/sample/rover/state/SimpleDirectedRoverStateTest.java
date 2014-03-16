@@ -21,19 +21,33 @@ public abstract class SimpleDirectedRoverStateTest {
 		verify(context, times(1)).setCurrentState(clockwiseState);
 	}
 
+	@Test
+	public void testSpinLeft() {
+		RoverState counterClockwiseState = createSampleRoverState();
+		SimpleDirectedRoverState state = createStateUnderTest(null,
+				counterClockwiseState);
+		Rover rover = null;
+		RoverStateContext context = mock(RoverStateContext.class);
+		state.spinLeft(rover, context);
+		verify(context, times(1)).setCurrentState(counterClockwiseState);
+	}
+
 	private RoverState createSampleRoverState() {
 		return new RoverState() {
 
 			@Override
 			public void spinRight(Rover rover, RoverStateContext context) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 			@Override
 			public void move(Rover rover, RoverStateContext context) {
-				// TODO Auto-generated method stub
+				
+			}
 
+			@Override
+			public void spinLeft(Rover rover, RoverStateContext context) {
+				
 			}
 		};
 	}
