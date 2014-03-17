@@ -124,9 +124,9 @@ public class MarsRoverSimulatorTest {
 				.assertTrue(
 						"Plateaus on Mars are supposed to be stateless and rectangular!",
 						plateau instanceof StatelessRectangularPlateau);
-		Assert.assertEquals(((StatelessRectangularPlateau) plateau).getWidth(),
+		Assert.assertEquals(((StatelessRectangularPlateau) plateau).getMaxX(),
 				5);
 		Assert.assertEquals(
-				((StatelessRectangularPlateau) plateau).getHeight(), 4);
+				((StatelessRectangularPlateau) plateau).getMaxY(), 4);
 	}
 }

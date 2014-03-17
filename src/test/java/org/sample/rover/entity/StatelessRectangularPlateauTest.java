@@ -8,22 +8,22 @@ public class StatelessRectangularPlateauTest {
 
 	@Test
 	public void testAllowsCoordinates() {
-		int width = 4;
-		int height = 5;
+		int maxX = 4;
+		int maxY = 5;
 		StatelessRectangularPlateau plateau = new StatelessRectangularPlateau(
-				width, height);
+				maxX, maxY);
 
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int x = 0; x <= maxX; x++) {
+			for (int y = 0; y <= maxY; y++) {
 				Assert.assertTrue("Plateau should allow [" + x + "," + y + "]",
 						plateau.allowsCoordinates(x, y));
 			}
 		}
 
-		verifyDoesntAllow(-1, height, plateau);
-		verifyDoesntAllow(width, -1, plateau);
-		verifyDoesntAllow(width + 1, 0, plateau);
-		verifyDoesntAllow(0, height + 1, plateau);
+		verifyDoesntAllow(-1, maxY, plateau);
+		verifyDoesntAllow(maxX, -1, plateau);
+		verifyDoesntAllow(maxX + 1, 0, plateau);
+		verifyDoesntAllow(0, maxY + 1, plateau);
 	}
 
 	private void verifyDoesntAllow(int x, int y,

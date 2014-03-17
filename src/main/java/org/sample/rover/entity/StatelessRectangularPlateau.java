@@ -1,25 +1,25 @@
 package org.sample.rover.entity;
 
 public class StatelessRectangularPlateau implements Plateau {
-	private final int width;
-	private final int height;
+	private final int maxX;
+	private final int maxY;
 
-	public StatelessRectangularPlateau(final int width, final int height) {
-		this.width = width;
-		this.height = height;
+	public StatelessRectangularPlateau(final int maxX, final int maxY) {
+		this.maxX = maxX;
+		this.maxY = maxY;
 	}
 
-	public int getWidth() {
-		return width;
+	public int getMaxX() {
+		return maxX;
 	}
 
-	public int getHeight() {
-		return height;
+	public int getMaxY() {
+		return maxY;
 	}
 
 	@Override
 	public boolean allowsCoordinates(int x, int y) {
-		return x >= 0 && x < width && y >= 0 && y < height;
+		return x >= 0 && x <= maxX && y >= 0 && y <= maxY;
 	}
 
 }
